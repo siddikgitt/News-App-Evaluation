@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #winner{
+            height: fit-content;
+            margin: auto;
+            width: fit-content;
+            text-align: center;
+            font-size: 50px;
+        }
+        #container{
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(1, 200px);
+            gap: 20px;
+            text-align: center;
+        }
+        #container > div {
+            border: 1px solid black;
+            font-size: 50px;
+            
+        }
+        button{
+            margin-top: 50px;
+                        
+        }
+    </style>
+</head>
+<body>
+    <div id="winner"></div>
+    <div id="container">
+        <div id="member-1"></div>
+        <div id="member-2"></div>
+        <div id="member-3"></div>
+    </div>
+    <button id="roll">ROLL THE DICE</button>
+</body>
+</html>
+
+<script>
+
+    document.querySelector("#roll").addEventListener("click", roll);        
+    function roll(){
+        event.preventDefault();
+        var winner_Div = document.querySelector("#winner");
+
+        var mem1_Div = document.querySelector("#member-1");
+        var mem2_Div = document.querySelector("#member-2");
+        var mem3_Div = document.querySelector("#member-3");
+
+        var mem1 = Math.floor(Math.random() * 6) + 1 ;
+        var mem2 = Math.floor(Math.random() * 6) + 1 ;
+        var mem3 = Math.floor(Math.random() * 6) + 1 ;
+        
+        mem1_Div.textContent = mem1;
+        mem2_Div.textContent = mem2;
+        mem3_Div.textContent = mem3;
+
+        mem1_Div.style.backgroundColor = "white";
+        mem2_Div.style.backgroundColor = "white";
+        mem3_Div.style.backgroundColor = "white";
+        
+
+
+        if(mem1 > mem2 && mem1 > mem3){
+            mem1_Div.style.backgroundColor = "green";
+            winner_Div.textContent = "Member 1 is winner";
+            if(mem2 > mem3){
+                mem2_Div.style.backgroundColor = "yellow";
+                mem3_Div.style.backgroundColor = "red";
+            }
+            else if(mem3 > mem2){
+                mem3_Div.style.backgroundColor = "yellow";
+                mem2_Div.style.backgroundColor = "red";
+            }
+            else if(mem2 == mem3){
+                mem3_Div.style.backgroundColor = "blue";
+                mem2_Div.style.backgroundColor = "blue";
+            }
+        }
+
+        else if(mem2 > mem1 && mem2 > mem3){
+            mem2_Div.style.backgroundColor = "green";
+            winner_Div.textContent = "Member 2 is winner";
+            if(mem1 > mem3){
+                mem1_Div.style.backgroundColor = "yellow";
+                mem3_Div.style.backgroundColor = "red";
+            }
+            else if(mem3 > mem1){
+                mem3_Div.style.backgroundColor = "yellow";
+                mem1_Div.style.backgroundColor = "red";
+            }
+            else if(mem1 == mem3){
+                mem3_Div.style.backgroundColor = "blue";
+                mem1_Div.style.backgroundColor = "blue";
+            }
+        }
+
+        else if(mem3 > mem2 && mem3 > mem1){
+            mem3_Div.style.backgroundColor = "green";
+            winner_Div.textContent = "Member 3 is winner";
+            if(mem1 > mem2){
+                mem1_Div.style.backgroundColor = "yellow";
+                mem2_Div.style.backgroundColor = "red";
+            }
+            else if(mem2 > mem1){
+                mem2_Div.style.backgroundColor = "yellow";
+                mem1_Div.style.backgroundColor = "red";
+            }
+            else if(mem1 == mem2){
+                mem2_Div.style.backgroundColor = "blue";
+                mem1_Div.style.backgroundColor = "blue";
+            }
+        }
+        else if(mem1 == mem2 && mem2 == mem3){
+            winner_Div.textContent = "Draw";
+            mem2_Div.style.backgroundColor = "blue";
+            mem1_Div.style.backgroundColor = "blue";
+            mem3_Div.style.backgroundColor = "blue";
+        }
+        else if(mem1 == mem2){
+            if(mem3 > mem1 && mem3 > mem2){
+                winner_Div.textContent = "Member 3 is winner";
+                mem2_Div.style.backgroundColor = "blue";
+                mem1_Div.style.backgroundColor = "blue";
+                mem3_Div.style.backgroundColor = "green";
+            }
+            else{
+                winner_Div.textContent = "Draw between Member 1 and Member 2";
+                mem2_Div.style.backgroundColor = "blue";
+                mem1_Div.style.backgroundColor = "blue";
+                mem3_Div.style.backgroundColor = "red";
+            }
+            
+        }
+        else if(mem2 == mem3){
+            if(mem1 > mem3 && mem1 > mem2){
+                winner_Div.textContent = "Member 1 is winner";
+                mem2_Div.style.backgroundColor = "blue";
+                mem1_Div.style.backgroundColor = "green";
+                mem3_Div.style.backgroundColor = "blue";
+            }
+            else{
+                winner_Div.textContent = "Draw between Member 2 and Member 3";
+                mem2_Div.style.backgroundColor = "blue";
+                mem1_Div.style.backgroundColor = "red";
+                mem3_Div.style.backgroundColor = "blue";
+            }
+        }
+        else if(mem1 == mem3){
+            if(mem2 > mem3 && mem2 > mem1){
+                winner_Div.textContent = "Member 2 is winner";
+                mem1_Div.style.backgroundColor = "blue";
+                mem2_Div.style.backgroundColor = "green";
+                mem3_Div.style.backgroundColor = "blue";
+            }
+            else{
+                winner_Div.textContent = "Draw between Member 1 and Member 3";
+                mem2_Div.style.backgroundColor = "red";
+                mem1_Div.style.backgroundColor = "blue";
+                mem3_Div.style.backgroundColor = "blue";
+            }
+        }
+    }
+</script>

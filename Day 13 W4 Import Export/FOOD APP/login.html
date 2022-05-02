@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <div id="login">
+        <form>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="submit">Login</button>
+        </form>
+    </div>
+
+    <p id="showData"></p>
+</body>
+
+</html>
+
+<script type="module">
+    import navbar from "./components/navbar.js";
+    document.getElementById("navbar").innerHTML = await navbar();
+
+    
+    let login = async (e) => {
+        e.preventDefault();
+        let user_data = {
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+        };
+
+        user_data = JSON.stringify(user_data);
+
+        let res = await fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+            method: "POST",
+            body: user_data,
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        let data = await res.json();
+        console.log("Data:", data);
+        
+        let username = document.getElementById("username").value;
+        getUserDetail(username, data.token);
+    };
+
+    document.getElementById("submit").addEventListener("click", login);
+
+    let data;
+    let getUserDetail = async (username, token) =>{
+        let res = await fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`, {
+            headers: {
+                Authorization: `Bearer ${token}` ,
+            },
+        });
+
+        data = await res.json();
+        console.log("User Data:", data);
+        return data
+    };
+
+    export default data
+    
+
+</script>
+
+<!-- sjhbikjhbfddi98kioionjoinkbikb
+12345 -->
+
+<!-- 
+{mobile: '8108900574', 
+username: 'sjhbikjhbfddi98kioionjoinkbikb', 
+name: 'Siiuyh9uohddjkikkh', 
+token: 'b798edc522c88f0ddfd78f7b7fd2016d', 
+description: 'jnbkjnb', …}
+
+description: "jnbkjnb"
+email: "siddhanpathan4@gmail.com"
+mobile: "8108900574"
+name: "Siiuyh9uohddjkikkh"
+token: "b798edc522c88f0ddfd78f7b7fd2016d"
+username: "sjhbikjhbfddi98kioionjoinkbikb" 
+-->

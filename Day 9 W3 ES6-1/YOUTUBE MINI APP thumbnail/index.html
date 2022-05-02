@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        #show_videos{
+            display: grid;
+            grid-template-columns: repeat(4, 20%);
+            grid-gap: 5%;
+        }
+        #navbar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #iconImg{
+            height: 56px;
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <div>
+            <img src="https://lh3.googleusercontent.com/3zkP2SYe7yYoKKe47bsNe44yTgb4Ukh__rBbwXwgkjNRe4PykGG409ozBxzxkrubV7zHKjfxq6y9ShogWtMBMPyB3jiNps91LoNH8A=s500"
+                id="iconImg"/>
+        </div>
+        <div>
+            <input style="height: 35px; width: 700px; font-size: 25px;" type="text" id="query">
+            <span onclick="searchVideos()">
+                <img style="height: 100%; width: 25px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/1024px-Search_Icon.svg.png" alt="">
+            </span>
+            
+            <!-- <button onclick="searchVideos()">Search</button> -->
+            <img style="height: 100%; width: 25px;" src="https://www.iconpacks.net/icons/1/free-microphone-icon-342-thumb.png" alt="">
+        </div>
+
+        <div>
+            <img style="height: 100%; width: 25px;" src="https://cdn-icons-png.flaticon.com/512/24/24990.png" alt="">
+            <img style="height: 100%; width: 25px;" src="https://cdn3.iconfinder.com/data/icons/faticons/32/grid-2-01-512.png" alt="">
+            <img style="height: 100%; width: 25px;" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-bell-512.png" alt="">
+            <img style="height: 100%; width: 25px;" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="">
+        </div>
+    </div>
+    <br><br>
+    
+    
+    <div id="show_videos"></div>
+</body>
+</html>
+
+<script>
+    //https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=kgf%202&key=[YOUR_API_KEY]
+    const api = "AIzaSyCj5em7b0iaZW-fhUL0NSojYOWD3EwY3FE";
+
+    const searchVideos = async () => {
+        try{
+            const q = document.getElementById("query").value;
+
+            const res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${q}&key=${api}`)
+        
+            const data = await res.json();
+
+            console.log(data.items);
+            appendd(data.items)
+        }
+        catch(err){
+            console.log("Error:", err);
+        }
+    }
+
+    const appendd = (videos) => {
+        let show_videos = document.getElementById("show_videos");
+        show_videos.innerHTML = null;
+        videos.forEach( ({id: {videoId}, snippet: {thumbnails}, snippet: {title}}) => {
+
+            let div = document.createElement("div");
+
+            // let iframe = document.createElement("iframe");
+            // iframe.src = `https://www.youtube.com/embed/${videoId}` ;
+            // iframe.width = "100%";
+            // iframe.height = "100%";
+            // iframe.allow = "fullscreen";
+            let thumbnail_URL = thumbnails.medium.url ;
+            let thumbnail_Width = thumbnails.medium.width ;
+            let thumbnail_Height = thumbnails.medium.height ;
+
+            let img = document.createElement("img");
+            img.src = thumbnail_URL;
+            img.style.height = thumbnail_Height ;
+            img.style.width = thumbnail_Width ;
+
+            let name = document.createElement("h5");
+            name.innerText = title ;
+
+            div.append(img, name);  
+            let data = {
+                title,
+                videoId
+            }
+            div.onclick = ()=>{
+                showVideo(data)
+            }
+            //console.log(div)          
+            show_videos.append(div);
+            // console.log(div)
+        });
+    }
+
+    const showVideo = (data) =>{
+        localStorage.clear();
+        localStorage.setItem("video", JSON.stringify(data));
+        window.location.href = "video.html";
+    }
+</script>
+
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/4Nx1iXxFUjU" title="YouTube video player"
+frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen></iframe> -->

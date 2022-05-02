@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News App</title>
+  <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+  <!-- Give Navbar with id "navbar"  -->
+  <!-- Navbar will have input with id search_input and a link to home page i.e. index.html -->
+  <div id="navbar">
+
+  </div>
+  <!-- Sidebar will have id "sidebar"  -->
+  <!-- Give link to top headlines of countries in sidebar with id as their country codes 
+    india :- in
+    china :- ch
+    usa :- us
+    uk : uk
+    Newzeland :- nz -->
+  <div id="content">
+    <div id="sidebar">
+      <h2>Countries</h2>
+      <h4 id="in" onclick="cSearch(this.id)"> India </h4>
+      <h4 id="ch" onclick="cSearch(this.id)">China</h4>
+      <h4 id="us" onclick="cSearch(this.id)">USA</h4>
+      <h4 id="uk" onclick="cSearch(this.id)">United Kingdom</h4>
+      <h4 id="nz" onclick="cSearch(this.id)">New Zealand</h4>
+    </div>
+
+    <!-- Append results inside div with id "results"  -->
+    <!-- News divs will have class "news"  -->
+    <div id="results"></div>
+
+  </div>
+</body>
+
+</html>
+
+<script src="./scripts/index.js" type="module"></script>
+
+
+<script>
+
+  async function defaultfun() {
+
+    let url = `https://masai-mock-api.herokuapp.com/news/top-headlines?country=in`;
+    // let container = document.getElementById("results");
+
+    let res = await fetch(url);
+
+    let data = await res.json();
+    console.log(data.articles);
+    appendData(data.articles)
+  }
+
+  defaultfun();
+
+  async function cSearch(id) {
+    let code = id;
+    console.log(id);
+
+    let url = `https://masai-mock-api.herokuapp.com/news/top-headlines?country=${code}`;
+    // let container = document.getElementById("results");
+
+    let res = await fetch(url);
+
+    let data = await res.json();
+    console.log(data.articles);
+    appendData(data.articles)
+
+  }
+
+  function appendData(data) {
+    let container = document.getElementById("results");
+    container.innerHTML = "";
+    data.forEach((el) => {
+      let div = document.createElement("div");
+      div.style.display = "flex";
+      div.style.padding = "20px";
+      div.addEventListener("click", function show() {
+        localStorage.setItem("news", JSON.stringify(el));
+        window.location.href = "./news.html";
+      });
+
+
+      let img = document.createElement("img");
+      img.src = el.urlToImage;
+      img.style.height = "200px";
+      img.style.width = "200px"
+
+      let innerDiv = document.createElement("div");
+
+
+      let title = document.createElement("h2");
+      title.style.overflow = "visible"
+      title.style.width = "100%";
+      title.innerText = el.title;
+
+      let des = document.createElement("p");
+      des.style.width = "100%"
+      des.innerText = el.description
+
+      innerDiv.append(title, des);
+
+      div.append(img, innerDiv);
+      container.append(div);
+    });
+  }
+
+
+
+</script>

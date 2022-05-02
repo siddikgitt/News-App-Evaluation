@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <br>
+    <div id="login">
+        <form>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="submit">Login</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
+
+<script type="module">
+    import navbar from "./components/navbar.js";
+    document.getElementById("navbar").innerHTML = navbar();
+
+    let login = async (e) => {
+        e.preventDefault();
+        let user_data = {
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+        };
+
+        user_data = JSON.stringify(user_data);
+
+        let res = await fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+            method: "POST",
+            body: user_data,
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        let data = await res.json();
+        console.log("Data:", data);
+        
+        let username = document.getElementById("username").value;
+        getUserDetail(username, data.token);
+    };
+
+    document.getElementById("submit").addEventListener("click", login);
+
+    let getUserDetail = async (username, token) =>{
+        let res = await fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`, {
+            headers: {
+                Authorization: `Bearer ${token}` ,
+            },
+        });
+
+        let data = await res.json();
+        console.log("User Data:", data);
+    };
+
+</script>
+
+<!-- bieouwbfivube 
+    12345
+    token: "b9473231422d2d4a7745f7a32793c6f9"
+-->

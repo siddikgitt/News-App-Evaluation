@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Signup</title>
+        <style>
+            #navbar{
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+            }
+            #navbar > a{
+                padding: 10px;
+                color: black;
+                font-weight: bold;
+                text-decoration: none;
+
+            }
+            #signup-form-div{
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                width: fit-content;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 25px 20px 25px;
+                margin: auto;
+                margin-top: 120px ;
+            }
+            form{                
+                text-align: center;
+                align-items: center;
+            }
+            #submit{
+                padding: 0px 25px 0px 25px;
+                background-color: teal;
+                color: white;
+                font-size: 15px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="navbar">
+            <a href="login.html">Login</a>            
+            <a href="signup.html">Signup</a>
+            <a href="index.html">Home</a>
+        </div>
+        <div id="signup-form-div">
+            <h1 style="text-align: center; font-family: 'Times New Roman';">Signup</h1>
+            <form id="form">
+                <!--Write form input elements here-->
+                <input type="text" placeholder="Enter your Name" id="name"/><br><br>
+                <input type="number" placeholder="Enter your Contact" id="contact"/><br><br>
+                <input type="email" placeholder="Enter your Email" id="email"/><br><br>
+                <input type="password" placeholder="Enter your Password" id="pwd"/><br><br>
+                <input type="submit" id="submit"/>                
+            </form>
+
+        </div>
+    </body>
+
+</html>
+
+<script src="./scripts/signup.js"></script>

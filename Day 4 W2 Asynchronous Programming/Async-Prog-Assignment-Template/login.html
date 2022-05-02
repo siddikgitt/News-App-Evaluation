@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <style>
+            #login-form-div{
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                width: fit-content;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 25px 20px 25px;
+                margin: auto;
+                margin-top: 180px ;
+            }
+            form{                
+                text-align: center;
+                align-items: center;
+            }
+            #submit{
+                padding: 0px 25px 0px 25px;
+                background-color: teal;
+                color: white;
+                font-size: 15px;
+            }
+            #navbar{
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+            }
+            #navbar > a{
+                padding: 10px;
+                color: black;
+                font-weight: bold;
+                text-decoration: none;
+
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="navbar">
+            <a href="login.html">Login</a>            
+            <a href="signup.html">Signup</a>
+            <a href="index.html">Home</a>
+        </div>
+            <div id="login-form-div">
+                <h2 style="text-align: center; font-family: 'Times New Roman';">Login</h2>
+                <form id="form">
+                    <!--Write form input elements here-->
+                    <input type="email" id="email" placeholder="Enter your Email"/><br><br>
+                    <input type="password" id="pwd" placeholder="Enter your Password"/><br><br>
+                    <input type="submit" id="submit"/>
+                </form>
+            </div>
+    </body>
+</html>
+
+<script src="./scripts/login.js"></script>

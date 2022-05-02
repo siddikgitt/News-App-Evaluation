@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #title{
+            width: 200px;
+        }
+        #moviesList{
+            height: 200px;
+            width: 206px;
+            overflow: scroll;
+            border: 1px solid black;
+            border-top: none;
+        }
+        #display{
+            height: 245px;
+            
+            display: flex;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hotstar</h1>
+    <input oninput="debounce(main, 1000)" type="text" id="title"/>
+    <div id="moviesList"></div>
+
+    <br><br>
+    <div id="display"></div>
+</body>
+</html>
+
+<script>
+    async function searchMovies(){
+        try{
+            const title = document.getElementById("title").value;
+            const url = await `https://www.omdbapi.com/?apikey=103efe9a&s=${title}` ;
+            const res = await fetch(url);
+            const data = await res.json();
+            const movies = data.Search ;
+            return movies ;
+            console.log("Data: ", data);
+        }
+        catch(err){
+            console.log("Error:", err);
+        }
+    }    
+
+    function appendMovies(data){
+        let moviesDiv = document.getElementById("moviesList")
+        moviesDiv.innerHTML = null ;
+
+        data.forEach(function(el) {
+            let titleDiv = document.createElement("div");
+            titleDiv.addEventListener("click", function(){
+                let displayDiv = document.getElementById("display");
+                displayDiv.innerHTML = null;
+
+                let img = document.createElement("img");
+                img.src = el.Poster;
+                img.style.height = "100%";
+                img.style.width = "200px";
+
+                let year = document.createElement("p");
+                year.innerText = el.Year;
+                
+                let title =  document.createElement("p");
+                title.innerText = el.Title;
+
+                displayDiv.append(img, year, title);
+
+            })
+
+            let p = document.createElement("p");
+            p.innerText = el.Title ;
+
+            titleDiv.append(p);
+            moviesDiv.append(titleDiv);
+        });
+    }
+
+    async function main(){
+        let data = await searchMovies();
+        if(data === undefined){
+            let moviesDiv = document.getElementById("moviesList")
+            moviesDiv.innerHTML = null ;
+            return false;
+        }
+        appendMovies(data);
+    }
+
+    let id;
+
+    async function debounce(main, delay){
+        if(id){
+            clearTimeout(id);
+        }
+        id = setTimeout(function(){
+            main()
+        }, 1000);
+    }
+</script>

@@ -1,0 +1,163 @@
+<!-- IPL TICKET BOOKING SYSTEM
+
+Problem Statement
+Create an IPL ticket booking system. Use LLD for your design.
+Description
+It will have following:-
+
+Multiple Floors for sitting
+It has separate slots for VVIPs, VIPs and General.
+Ticket window, which will provide ticket based on slot availability.
+Age, gender and category will be mentioned on the ticket.
+Make a complete working system where user can search for available slots and make booking if available.
+Once a slot is booked it should not be available for booking 
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>IPL TICKET SYSTEM</h1><br>
+    <p>Please Check Inpect</p>
+</body>
+</html>
+
+<script>
+    class Person{
+        constructor(category, age, gender){
+            this._category = category;
+            this._age = age;
+            this._gender = gender;
+        }
+
+        get category(){
+            return this._category;
+        }
+
+        set category(value){
+            this._category = value;
+        }
+    }
+
+    class VVIP extends Person{
+        constructor(age, gender){
+            super("VVIP", age, gender);
+        }
+    }
+
+    class VIP extends Person{
+        constructor(age, gender){
+            super("VIP", age, gender);
+        }
+    }
+
+    class General extends Person{
+        constructor(age, gender){
+            super("General", age, gender);
+        }
+    }
+
+    class Slot{
+        constructor(category, number){
+            this.category = category;
+            this._isBooked = false;
+            this.number = number;
+        }
+
+        get isBooked(){
+            return this._isBooked;
+        }
+
+        set isBooked(value){
+            this._isBooked = value;
+        }
+    }
+
+    class Floor{
+        constructor(floorNumber, maxFloor){
+            this.floorNumber = floorNumber;
+            this._seats = [];
+
+            for(let i=0; i < maxFloor; i++){
+                if(i==0){
+                    this._seats.push(new Slot("General", i));
+                }
+                else if(i == 1){
+                    this._seats.push(new Slot("VIP", i));
+                }
+                else{
+                    this._seats.push(new Slot("VVIP", i));
+                }
+            }
+        }
+        get seats(){
+            return this._seats;
+        }
+    }
+
+    // let pf1 = new Floor(0,2);
+    // console.log("PF1:", pf1);
+
+    class availability{
+        constructor(number){
+            this._floors = [];
+            this._numberOfFloors = number;
+
+            for(let i=0; i<number; i++){
+                this._floors[i] = new Floor(i, number);
+            }
+        }
+
+        bookticket(person){
+            let slot = this.findSlot(person.category);
+
+            if(!slot){
+                console.log("No Seat Availble");
+                return false;
+            }
+
+            this.bookSeat(slot);
+            let ticket = new Ticket(slot.seat.category, slot.seat.number, person._age, person._gender);
+            console.log("Ticket is Issued:", ticket);
+        }
+
+        findSlot(type){
+            for(let i=0; i<this._numberOfFloors; i++){
+                for(let slot of this._floors[i]._seats){
+                    if(slot.category === type && !slot._isBooked){
+                        return {floorNumber: i, seat: slot}
+                    }
+                }
+            }
+            return false;
+        }
+
+        bookSeat(slot){
+            slot.seat.isBooked = true;
+            console.log("Slot is booked:", slot);
+            return true;
+        }
+
+    }
+
+    class Ticket{
+        constructor(category, seatNumber, age, gender){
+            this.category = category;
+            this.seatNumber = seatNumber;
+            this.issuedAt = new Date();
+            this.age = age;
+            this.gender = gender;
+        }
+    }
+
+    let p1 = new availability(3);
+    let b1 = new VVIP("21", "Male");
+    p1.bookticket(b1);
+</script>

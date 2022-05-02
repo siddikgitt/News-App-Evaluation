@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Inspect</h1>
+    <p>Output printed in console</p>
+</body>
+</html>
+
+<script>
+    let person1 = {
+        name: "Amar",
+        role: "Singer",
+        city: "Goa",
+        want: function(person){
+            console.log(`Amar want ${this.role} skill`)
+        }
+    };
+    
+    let person2 = {
+        name: "Akbar",
+        role: "Chef",
+        city: "Mumbai",
+        want: function(person){
+            console.log(`Akbar want ${this.role} skill`)
+        }
+    };
+
+    let person3 = {
+        name: "Anthony",
+        role: "Magician",
+        city: "Kashmir",
+        want: function(person){
+            console.log(`Anthony want ${this.role} skill`)
+        }
+    };
+
+    person1.want.call(person2);
+    person2.want.call(person3);
+    person3.want.call(person1);
+
+</script>

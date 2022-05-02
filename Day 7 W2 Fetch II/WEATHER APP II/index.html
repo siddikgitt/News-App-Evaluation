@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-radius: 10px;
+            width: fit-content;
+            margin: auto;
+        }
+    </style>
+</head>
+<body style="background-color: #282828;">
+    <div id="container"></div>
+</body>
+</html>
+
+<script>
+    let mainDiv = document.getElementById("container");
+
+    const getData = async() =>{
+        const url = `https://api.openweathermap.org/data/2.5/onecall?lat=19.073342&lon=72.994905&units=metric&exclude=current,minutely,hourly,alerts&appid=f90fc20c73956fd570263539f1197eba`;
+        const res = await fetch(url);
+        const x = await res.json();
+        console.log(x.daily);
+
+        let data = x.daily;
+
+        data.forEach((el) => {
+            let div = document.createElement("div");
+            div.style.border = "1px solid white";
+            
+            let utcDate = el.dt;
+            const date = new Date(utcDate*1000);
+            let a = new Date(date.toLocaleDateString("en-US"));
+
+            let day = a.toString().split(' ')[0];
+
+            let dayTag = document.createElement("h2");
+            dayTag.innerText = day;
+            dayTag.style.textAlign = "center";
+            dayTag.style.color = "white";
+
+            
+            let br = document.createElement("br");
+
+            let img = document.createElement("img");
+            img.src = `http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`;
+            img.style.height = "150px";
+            img.style.width = "150px";
+
+            let max = document.createElement("p");
+            max.innerText = `${el.temp.max}°`;
+            max.style.textAlign = "center";
+            max.style.color = "white";
+
+            let min = document.createElement("p");
+            min.innerText = `${el.temp.min}°`;
+            min.style.textAlign = "center";
+            min.style.color = "white";
+
+            div.append(dayTag, br, img, max, min);
+            mainDiv.append(div);
+
+        });
+    }
+    getData();
+</script>

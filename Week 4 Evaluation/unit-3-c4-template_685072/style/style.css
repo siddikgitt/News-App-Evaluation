@@ -1,0 +1,29 @@
+#navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#search_input {
+    width: 1000px;
+    border-radius: 10px;
+
+    font-size: 20px;
+    height: 30px;
+    color: black;
+}
+
+#content {
+    display: flex;
+    justify-content: space-between;
+}
+
+h4 {
+    background-color: teal;
+    padding: 12px;
+}
+
+#sidebar {
+    width: 25%;
+    padding: 20px;
+}

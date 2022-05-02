@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Form</title>
+</head>
+<body>
+    <a href="products.html">products.html Redirect</a>
+    <br>
+    <br>
+    <form onsubmit="storeProduct(event)" id="products">
+        <input type="text" placeholder="Enter Product Name" id="name"/><br><br>
+        <input type="text" placeholder="Enter Category" id="category"/><br><br>
+        <input type="text" placeholder="Enter Image URL" id="image"/><br><br>
+        <input type="number" placeholder="Enter Price" id="price"/><br><br>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select><br><br>
+        <select id="sold">
+            <option value="true">True</option>
+            <option value="false" selected>False</option>
+        </select><br><br>
+        <input type="submit" id="add"/>
+    </form>
+</body>
+</html>
+
+<script>
+
+    function Product(name, category, imageURL, price, gender, soldStatus){
+        this.name = name;
+        this.category = category;
+        this.imageURL = imageURL;
+        this.price = price;
+        this.gender = gender;
+        this.soldStatus = soldStatus;
+    }
+
+    let arr = JSON.parse(localStorage.getItem("Products")) || [];
+
+    function storeProduct(e){
+        e.preventDefault();
+        console.log("A");
+        let form = document.getElementById("products");
+        let name = form.name.value;
+        let category = form.category.value;
+        let imageURL = form.image.value;
+        let price = form.price.value;
+        let gender = form.gender.value;
+        let soldStatus = form.sold.value;
+        
+        let p = new Product(name, category, imageURL, price, gender, soldStatus);
+        arr.push(p);
+
+        localStorage.setItem("Products", JSON.stringify(arr));
+        window.location.reload();
+    }
+</script>

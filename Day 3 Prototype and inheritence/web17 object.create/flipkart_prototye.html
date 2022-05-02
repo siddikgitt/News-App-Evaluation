@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    function catelogue(proName, proPrice){
+        this.name = proName,
+        this.price = proPrice
+    }
+
+    let p1 = new catelogue("Shoes", 2000);
+    console.log(p1);
+
+    catelogue.prototype.size = "9UK";
+
+    catelogue.prototype.bio = function(){
+        console.log(`Product Name: ${this.name} Product price: ${this.price} Product size: ${this.size}`)
+    }
+
+    p1.bio();
+</script>

@@ -1,0 +1,29 @@
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+#anchorTag{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+#icon{
+    height: 70px;
+    width: 70px;
+}
+
+#showItems{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+}
+
+#name{
+    height: 50px;
+    width: 90%;
+    font-size: 25px;
+    margin-left: 80px;
+}

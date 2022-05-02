@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #navbar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #iconImg{
+            height: 56px;
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <div>
+            <img src="https://lh3.googleusercontent.com/3zkP2SYe7yYoKKe47bsNe44yTgb4Ukh__rBbwXwgkjNRe4PykGG409ozBxzxkrubV7zHKjfxq6y9ShogWtMBMPyB3jiNps91LoNH8A=s500"
+                id="iconImg"/>
+        </div>
+        <div>
+            <input style="height: 35px; width: 700px; font-size: 25px;" type="text" id="query">
+            <span onclick="searchVideos()">
+                <img style="height: 100%; width: 25px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/1024px-Search_Icon.svg.png" alt="">
+            </span>
+            
+            <!-- <button onclick="searchVideos()">Search</button> -->
+            <img style="height: 100%; width: 25px;" src="https://www.iconpacks.net/icons/1/free-microphone-icon-342-thumb.png" alt="">
+        </div>
+
+        <div>
+            <img style="height: 100%; width: 25px;" src="https://cdn-icons-png.flaticon.com/512/24/24990.png" alt="">
+            <img style="height: 100%; width: 25px;" src="https://cdn3.iconfinder.com/data/icons/faticons/32/grid-2-01-512.png" alt="">
+            <img style="height: 100%; width: 25px;" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-bell-512.png" alt="">
+            <img style="height: 100%; width: 25px;" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="">
+        </div>
+    </div>
+    <br><br>
+    <div id="video"></div>
+</body>
+</html>
+
+<script>
+    let div = document.getElementById("video");
+
+    let data = JSON.parse(localStorage.getItem("video"));
+    let iframe = document.createElement("iframe");
+    let videoId = data.videoId;
+    iframe.src = `https://www.youtube.com/embed/${videoId}` ;
+    iframe.height = "500px";
+    iframe.width = "100%";
+    iframe.allow = "fullscreen";
+
+    div.append(iframe);
+
+    
+</script>

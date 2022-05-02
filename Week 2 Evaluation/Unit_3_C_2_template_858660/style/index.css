@@ -1,0 +1,14 @@
+#navbar{
+    display: flex;
+    flex-direction: row-reverse;
+    direction: rtl;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+#items{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+}

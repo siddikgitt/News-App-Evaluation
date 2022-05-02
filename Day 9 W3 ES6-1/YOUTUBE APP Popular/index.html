@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #show{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Youtube Mini App</h1>
+    <div id="show"></div>
+</body>
+</html>
+
+<script>
+    const api = "AIzaSyCj5em7b0iaZW-fhUL0NSojYOWD3EwY3FE";
+    
+    const popularVideos = async() =>{
+        try{
+            const res = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?chart=mostPopular&maxResults=20&key=${api}`);
+            const data = await res.json();
+            console.log(data.items);
+            add(data.items);
+            
+        }
+        catch(error){
+            console.log("Error:", error);
+        }
+    }
+    const add = (data) =>{
+        let mainDiv = document.getElementById("show");
+        data.forEach( ({id})  => {
+            let iframe = document.createElement("iframe");
+            iframe.src = `https://www.youtube.com/embed/${id}` ;
+            iframe.width = "100%";
+            iframe.height = "100%";
+            iframe.allow = "fullscreen";
+
+            mainDiv.append(iframe);
+        }); 
+    }
+    popularVideos();
+</script>
+
+<!-- GET https://youtube.googleapis.com/youtube/v3/videos?chart=mostPopular&maxResults=20&key=[YOUR_API_KEY] HTTP/1.1
+
+Authorization: Bearer [YOUR_ACCESS_TOKEN]
+Accept: application/json -->

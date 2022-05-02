@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mainDiv{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trending Movies</h1>
+    <br><br>
+    <div id="mainDiv"></div>
+</body>
+</html>
+
+<script>
+    async function getData(){
+        try{
+            const url = await `https://api.themoviedb.org/3/trending/movie/week?api_key=e9acdf617479f155013976a39b35395a`
+            const res = await fetch(url);
+            const data = await res.json();
+            console.log(data.results)
+            appendMovies(data.results)
+        }
+        catch(err){
+            console.log("Error", err);
+        } 
+    }
+
+    function appendMovies(data){
+        console.log("in")
+        let movieDiv = document.getElementById("mainDiv");
+
+        data.forEach((el) => {
+            let div = document.createElement("div");
+            div.style.border = "1px solid black";
+
+            let img = `https://image.tmdb.org/t/p/original/${el.poster_path}`;
+            let imgTag = document.createElement("img");
+            imgTag.src = img;
+            imgTag.style.height = "250px";
+            imgTag.style.width = "100%";
+
+            let title = document.createElement("h5");
+            title.innerText = el.title;
+
+            let release_date = document.createElement("p");
+            release_date.innerText = el.release_date;
+
+            div.append(imgTag, title, release_date);
+
+            movieDiv.append(div)
+        });
+    }
+    getData();
+</script>

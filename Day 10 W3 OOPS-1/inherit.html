@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    class Car {
+        constructor(n, b){
+            this.name = n,
+            this.brand = b,
+            this.wheels = 4
+        }
+    }
+
+    class Sedan extends Car{
+        constructor(n,b){
+            super(n,b);
+            this.electric = "False";
+        }
+    }
+
+    let sedanCar = new Sedan("Honda", "City");
+    console.log("sedanCar:", sedanCar);
+
+    class Electric extends Sedan{
+        constructor(n, b, value){
+            super(n,b);
+            this.electric = value;
+        }
+    }
+
+    let electricCar = new Electric("Tata", "Nexon");
+    console.log("Electric Car:", electricCar);
+
+
+</script>

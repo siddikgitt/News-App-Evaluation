@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Polymorphism</h1>
+</body>
+</html>
+
+<script>
+    class vehicle{
+        run(){
+            console.log("Vehicle is running");
+        }
+    }
+    class car extends vehicle{
+        run(){
+            console.log("Car is running");
+        }
+    }
+    class truck extends car{
+        //if child is not present it will excute the parent's code
+    }
+
+    let v1 = new vehicle();
+    let v2 = new car();
+    let v3 = new truck();
+
+    v1.run();
+    v2.run();
+    v3.run();
+
+</script>

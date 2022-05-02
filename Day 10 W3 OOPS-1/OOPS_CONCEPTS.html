@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>OOPS CONCEPTS</h1>
+</body>
+</html>
+
+<script>
+    // ---------------------------------------- Problem 1 ----------------------------------------
+
+    // Build an inheritance model of your family tree using class constructor.
+    class son{
+        constructor(name, age){
+            this.name = name;
+            this.age = age
+        }
+    }
+
+    class father extends son{
+        constructor(name, age, hobby){
+            super(name, age);
+            this.hobby = hobby;
+        }
+    }
+
+    let f1 = new father("Imtiyajkhan", "50", "Travelling");
+    let s1 = new son("Siddikkhan", "21");
+
+    console.log("Father:", f1);
+    console.log("Son:", s1);
+
+    // Build an inheritance model of cat family using class constructor.
+
+    class catFamily{
+        constructor(food){
+            this.food = food
+        }
+    }
+
+    class tiger extends catFamily{
+        constructor(food){
+            super(food);
+        }
+    }
+
+    let cat = new catFamily("Milk");
+    let tigerFam = new tiger("Meat");
+
+    console.log("Cat:", cat);
+    console.log("Tiger:", tigerFam)
+
+    // ---------------------------------------- Problem 2 ----------------------------------------
+
+    // Think of an online payment portal where you don't want to disclose the user data to all.
+    // Implement one using encapsulation for the same. Use getters and setters
+
+    class payment{
+        constructor(){
+            let cardNum;
+            let cvv;
+        }
+        getCardNum(){
+            return this.cardNum;
+        }
+        getCVV(){
+            return this.cvv;
+        }
+        setCardNum(num){
+            this.cardNum = num;
+        }
+        setCVV(num){
+            this.cvv = num;
+        }
+    }
+
+    let pay = new payment();
+
+    pay.setCardNum(1234);
+    pay.setCVV(123);
+    console.log("Card Number:", pay.getCardNum());
+    console.log("Card CVV:", pay.getCVV());
+
+    // ---------------------------------------- Problem 3 ----------------------------------------
+
+    // Abstraction is hiding the unnecessary details from the users.
+    // Implement an example on your own for abstraction where you want show only relevant details of the object to the user
+    // Should be different from the live session
+
+    class numbers{
+        constructor(num1, num2){
+            this.num1 = num1;
+            this.num2 = num2;
+            this.sum = "";
+        }
+        doSum(num1,num2){
+            this.sum = num1 + num2;
+        }
+    }
+
+    let num = new numbers(4,5);
+    num.doSum(4,5);
+    console.log(num);
+
+    // ---------------------------------------- Problem 4 ----------------------------------------
+
+    // Implement an example of your own to show Polymorphism.
+    // Should be different from the live session
+
+    class sedan{
+        run(){
+            console.log("Honda City");
+        }
+    }
+    class suv extends sedan{
+        run(){
+            console.log("Toyota Fortuner");
+        }
+    }
+    class luxury extends suv{
+        run(){
+            console.log("BMW 630d M Sport")
+        }
+    }
+
+    let sed = new sedan();
+    let su = new suv();
+    let lux = new luxury();
+
+    sed.run();
+    su.run();
+    lux.run();
+
+</script>

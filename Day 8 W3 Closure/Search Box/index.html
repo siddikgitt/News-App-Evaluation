@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #query{
+            width: 200px;
+        }
+        #movies{
+            border: 1px solid black;
+            height: 200px;
+            width: 206px;
+            border-top: none;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hotstar</h1>
+
+    <input oninput="debounce(main, 1000)" type="text" id="query"/>
+    <div id="movies"></div>
+</body>
+</html>
+
+<script>
+    async function searchMovies(){
+
+        try{
+            const query = document.getElementById("query").value;
+
+            const url = await `https://www.omdbapi.com/?apikey=103efe9a&s=${query}`;
+
+            let res = await fetch(url);
+
+            let data = await res.json();
+
+            const movies = data.Search;
+
+            return movies;
+
+            console.log("data", data)
+
+        }
+        catch(err){
+            console.log("error", err);
+        }
+    }
+
+    function appendMovies(data){
+        let moviesDiv = document.getElementById("movies");
+        moviesDiv.innerHTML = "";
+
+        data.forEach(function (el) {
+            let p = document.createElement("p");
+            p.innerText = el.Title;
+            moviesDiv.append(p);
+        });
+    }
+
+    //we will assemble them in one function
+
+    async function main(){
+        let data = await searchMovies();
+        if(data === undefined){
+            let moviesDiv = document.getElementById("movies");
+            moviesDiv.innerHTML = "";
+            return false;
+        }
+        appendMovies(data)
+    }
+
+    //debouncing
+
+    let id;
+    function debounce(main, delay){
+        if(id){
+            clearTimeout(id);
+        }
+        id = setTimeout(function(){
+            main();
+        }, delay)
+    }
+</script>
